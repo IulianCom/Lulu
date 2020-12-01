@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "694548878877",
+    "firebase_url": "https://lulu-30eba.firebaseio.com",
+    "project_id": "lulu-30eba",
+    "storage_bucket": "lulu-30eba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694548878877:android:3b7d80d1fac9ce0be4d8f4",
+        "android_client_info": {
+          "package_name": "com.example.lulu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694548878877-1hetr75jfp8e7m767gndia9fakh8gf9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lulu",
+            "certificate_hash": "59a76fbca4ed732a74f79103f697dbf6bd9c13c5"
+          }
+        },
+        {
+          "client_id": "694548878877-lu0h07ig0d4kjndduj09g0su8fjgivco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW6SdUDs7csrKPuuH5NyfZtgBCo9cDck4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694548878877-lu0h07ig0d4kjndduj09g0su8fjgivco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

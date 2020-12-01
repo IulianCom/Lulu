@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_mode"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/lulu_logo"
+        android:layout_width="150dp"
+        android:maxHeight="120dp"
+        android:src="@drawable/ic_lulu_logo2"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/lulu_name"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_lulu_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/lulu_logo"
+        android:layout_height="wrap_content">
+
+    </ImageView>
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/lulu_name"
+        android:layout_height="wrap_content"
+
+        android:text="Your custom fandom."
+        android:textColor="@color/paletteWhite"
+        android:fontFamily="@font/gotham_book"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/paletteWhite"
+        android:background="@drawable/sign_up_button"
+        android:fontFamily="@font/gotham_book"
+        android:text="Sign up free"
+        android:textAllCaps="false">
+    </Button>
+
+    <TextView
+        android:id="@+id/tv_log_in"
+        android:layout_below="@+id/btn_sign_up"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Log in"
+        android:textStyle="bold"
+        android:textColor="@color/paletteWhite"
+        android:textSize="22sp"
+        android:fontFamily="@font/gotham_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+</RelativeLayout>
