@@ -56,8 +56,8 @@ public class RegisterActivity extends AppCompatActivity {
                         else {
                             User user = new User(email, pass);
                             userDatabase.child(mAuth.getCurrentUser().getUid())
-                                        .setValue(user);
-                            startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                                    .setValue(user);
+                            startActivity(new Intent(RegisterActivity.this, WelcomeActivity.class));
                         }
                     }
                 });
