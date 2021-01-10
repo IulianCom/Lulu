@@ -10,4 +10,6 @@ public class FirebaseHelper {
     public static final DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference("users");
     public static final StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     public static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static final DatabaseReference singerDatabase = FirebaseDatabase.getInstance().getReference("singers");
+
 }
