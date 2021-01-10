@@ -11,5 +11,6 @@ public class FirebaseHelper {
     public static final StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     public static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public static final DatabaseReference singerDatabase = FirebaseDatabase.getInstance().getReference("singers");
-
+    public static final String adminUUID = "eRbdfXYZIQebBDCiU1IVTKPEBEq2"; //Ion
+    public static final StorageReference mImagesRef = mStorageRef.child("singers_image");
 }

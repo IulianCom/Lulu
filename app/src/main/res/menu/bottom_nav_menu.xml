@@ -9,12 +9,12 @@
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="Search" />
+        android:title="@string/title_search" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_baseline_library_music_24"
-        android:title="Library" />
+        android:title="@string/title_library" />
 
     <item
         android:id="@+id/navigation_premium"
