@@ -11,9 +11,6 @@
         android:roundIcon="@drawable/ic_lulu_logo2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
