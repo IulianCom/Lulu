@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
                 String singerName = newSingerEt.getText().toString();
                 if(!singerName.isEmpty()) {
                     randomUUID = UUID.randomUUID();
-                    singerDatabase.child(randomUUID.toString()).setValue(new Singer(singerName, randomUUID));
+                    singerDatabase.child(randomUUID.toString()).setValue(new Singers(singerName, "gs://lulu-30eba.appspot.com/singers_image/" + randomUUID.toString()));
                     addPhotoToDatabase();
                 }
                 else{

@@ -1,5 +1,6 @@
 package com.example.lulu;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class SearchFragment extends Fragment {
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                     if(snapshot.exists()){
                         list = new ArrayList<>();
                         for(DataSnapshot ds : snapshot.getChildren()){
