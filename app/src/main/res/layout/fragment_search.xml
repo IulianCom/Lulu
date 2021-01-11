@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark_mode"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/search_tv"
         android:layout_width="wrap_content"
         android:text="Search"
         android:textSize="40dp"
+        android:fontFamily="@font/gotham_book"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="22dp"
         android:textColor="@color/paletteWhite"
         android:layout_height="wrap_content"/>
+    <SearchView
+        android:id="@+id/sv"
+        android:background="@color/darkGrey"
+        android:paddingStart="10dp"
+        android:textColor="@color/paletteWhite"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_height="35dp"
+        app:queryHint="Search"
+        android:layout_width="370dp"
+        android:layout_below="@+id/search_tv"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/sv"
+        android:layout_margin="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
