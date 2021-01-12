@@ -1,14 +1,14 @@
 package com.example.lulu;
 
-public class Singers {
+public class Singer {
     private String name;
     private String purl;
 
-    public Singers() {
+    public Singer() {
     }
 
 
-    public Singers(String name, String purl) {
+    public Singer(String name, String purl) {
         this.name = name;
         this.purl = purl;
     }

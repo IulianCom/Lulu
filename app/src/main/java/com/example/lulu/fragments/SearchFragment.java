@@ -1,12 +1,10 @@
 package com.example.lulu;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +21,7 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
     DatabaseReference ref;
-    ArrayList<Singers> list;
+    ArrayList<Singer> list;
     RecyclerView recyclerView;
     SearchView searchView;
     @Nullable
@@ -48,7 +46,7 @@ public class SearchFragment extends Fragment {
                         list = new ArrayList<>();
                         for(DataSnapshot ds : snapshot.getChildren()){
 
-                            list.add(ds.getValue(Singers.class));
+                            list.add(ds.getValue(Singer.class));
                         }
                         AdapterClass adapterClass =new AdapterClass(list, getContext());
                         recyclerView.setAdapter(adapterClass);
@@ -78,8 +76,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String string){
-        ArrayList<Singers> singerList = new ArrayList<>();
-        for(Singers object : list){
+        ArrayList<Singer> singerList = new ArrayList<>();
+        for(Singer object : list){
             if(object.getName().toLowerCase().contains(string.toLowerCase())){
                 singerList.add(object);
             }

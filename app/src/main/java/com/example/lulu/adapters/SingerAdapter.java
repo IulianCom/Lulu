@@ -23,10 +23,10 @@ import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder>{
 
-    ArrayList<Singers> list;
+    ArrayList<Singer> list;
     Context context;
 
-    public AdapterClass(ArrayList<Singers> list, Context context){
+    public AdapterClass(ArrayList<Singer> list, Context context){
 
         this.list=list;
         this.context = context;
