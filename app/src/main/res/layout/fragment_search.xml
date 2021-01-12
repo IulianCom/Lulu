@@ -22,6 +22,7 @@
         android:layout_marginStart="22dp"
         android:textColor="@color/paletteWhite"
         android:layout_height="wrap_content"/>
+
     <SearchView
         android:id="@+id/sv"
         android:background="@color/darkGrey"
@@ -33,16 +34,23 @@
         app:queryHint="Search"
         android:layout_width="370dp"
         android:layout_below="@+id/search_tv"/>
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/sv"
+    android:layout_margin="10dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/darkGrey"
         android:layout_width="match_parent"
-        android:layout_below="@+id/sv"
         android:layout_margin="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_height="wrap_content"/>
-
+</RelativeLayout>
     </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/singer_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
 
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/singer_image"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:text="Name"
         android:textSize="30dp"
         android:fontFamily="@font/gotham_book"
@@ -27,6 +28,7 @@
         android:layout_centerHorizontal="true" />
 
     <ScrollView
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_below="@+id/singer_name"
         android:layout_height="match_parent">
@@ -42,7 +44,7 @@
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/ll_add_song"
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -53,6 +55,7 @@
                     android:id="@+id/et_song_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/paletteWhite"
                     android:gravity="top"
                     android:hint="Enter sing name"
                     android:scrollbars="vertical" />
@@ -60,6 +63,7 @@
                     android:id="@+id/et_song_link"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/paletteWhite"
                     android:gravity="top"
                     android:hint="Enter song link"
                     android:scrollbars="vertical" />

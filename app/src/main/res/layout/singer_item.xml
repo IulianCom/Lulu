@@ -7,9 +7,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/darkGrey"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:layout_height="150dp">
         <ImageView
+            android:layout_centerVertical="true"
             android:id="@+id/singer_image"
             android:src="@mipmap/ic_launcher"
             android:layout_width="130dp"
