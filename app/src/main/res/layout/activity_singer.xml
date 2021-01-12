@@ -4,13 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_mode"
     tools:context=".SingerActivity">
+
+    <ImageView
+        android:id="@+id/singer_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
     <TextView
         android:id="@+id/singer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/singer_image"
+        android:layout_marginTop="30dp"
+        android:text="Name"
+        android:textSize="30dp"
+        android:fontFamily="@font/gotham_book"
+        android:textColor="@color/paletteWhite"
         android:layout_centerHorizontal="true" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_singer"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/singer_name"
+        android:layout_margin="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="match_parent"/>
 
 
 </RelativeLayout>
