@@ -13,6 +13,7 @@ public class FirebaseHelper {
     public static final DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference("users");
     public static final DatabaseReference singerDatabase = FirebaseDatabase.getInstance().getReference("singers");
     public static final DatabaseReference songsDatabase = FirebaseDatabase.getInstance().getReference("songs");
+    public static final DatabaseReference likedSongsDatabase = FirebaseDatabase.getInstance().getReference("likedSongs");
 
     public static final StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
     public static final StorageReference mSingersImagesRef = mStorageRef.child("singers_image");

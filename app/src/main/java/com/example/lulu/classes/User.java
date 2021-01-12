@@ -1,5 +1,7 @@
 package com.example.lulu.classes;
 
+import java.util.ArrayList;
+
 public class User {
 
     private String email;
@@ -12,10 +14,6 @@ public class User {
     }
 
     public User(){}
-
-    public String getName() {
-        return this.name;
-    }
 
     public String getEmail() {
         return email;
@@ -31,6 +29,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

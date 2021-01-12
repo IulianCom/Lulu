@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lulu.R;
 import com.example.lulu.classes.Song;
+import com.example.lulu.classes.User;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+
+import static com.example.lulu.FirebaseHelper.likedSongsDatabase;
+import static com.example.lulu.FirebaseHelper.mAuth;
+import static com.example.lulu.FirebaseHelper.userDatabase;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>{
 
@@ -23,7 +30,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     Context context;
 
     public SongAdapter(ArrayList<Song> list, Context context){
-
         this.list=list;
         this.context = context;
     }
@@ -36,11 +42,25 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
-
-        holder.name.setText(list.get(position).getName());
+        Song currentSong = list.get(position);
+        holder.name.setText(currentSong.getName());
 
         holder.itemView.setOnClickListener(view -> {
-            goToWebPage(list.get(position).getYoutubeLink());
+            goToWebPage(currentSong.getYoutubeLink());
+        });
+
+        holder.likedSong.setChecked(currentSong.isFavourite());
+
+
+        holder.likedSong.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                currentSong.setFavourite(true);
+                likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).child(currentSong.getUuid()).setValue(currentSong);
+            }
+            else {
+                currentSong.setFavourite(false);
+                likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).child(currentSong.getUuid()).removeValue();
+            }
         });
     }
 
@@ -59,10 +79,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     class SongViewHolder extends RecyclerView.ViewHolder{
         TextView name;
         ImageView songImage;
+        CheckBox likedSong;
         public SongViewHolder(@NonNull View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.tv_song_name);
             songImage = itemView.findViewById(R.id.iv_song_image);
+            likedSong = itemView.findViewById(R.id.checkBox);
         }
     }
 }

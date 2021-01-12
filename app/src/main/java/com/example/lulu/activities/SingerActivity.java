@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.example.lulu.FirebaseHelper.adminUUID;
+import static com.example.lulu.FirebaseHelper.likedSongsDatabase;
 import static com.example.lulu.FirebaseHelper.mAuth;
 import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 import static com.example.lulu.FirebaseHelper.singerDatabase;
@@ -70,6 +71,23 @@ public class SingerActivity extends AppCompatActivity {
     }
 
     private void populateRecyclerView(DatabaseReference ref) {
+        ArrayList<Song> favoriteSongs = new ArrayList<>();
+        likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        favoriteSongs.add(ds.getValue(Song.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if(ref != null){
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -77,13 +95,16 @@ public class SingerActivity extends AppCompatActivity {
                     if(snapshot.exists()){
                         list = new ArrayList<>();
                         for(DataSnapshot ds : snapshot.getChildren()) {
-                            list.add(ds.getValue(Song.class));
+                            Song song = ds.getValue(Song.class);
+                            if(favoriteSongs.contains(song))
+                                song.setFavourite(true);
+                            else song.setFavourite(false);
+                            list.add(song);
                         }
                         SongAdapter songAdapter = new SongAdapter(list, getApplicationContext());
                         recyclerView.setAdapter(songAdapter);
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Toast.makeText(SearchFragment.this,error.getMessage(),Toast.LENGTH_SHORT).show();
