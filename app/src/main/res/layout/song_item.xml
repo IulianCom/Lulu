@@ -11,7 +11,7 @@
         android:layout_height="150dp">
         <ImageView
             android:id="@+id/singer_image"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_baseline_music_note_24"
             android:layout_width="130dp"
             android:layout_height="130dp"/>
         <TextView
@@ -19,7 +19,7 @@
             android:id="@+id/singers_name"
             android:fontFamily="@font/gotham_book"
             android:textColor="@color/paletteWhite"
-            android:text="The Weeknd"
+            android:text="Song name"
             android:textSize="40sp"
             android:layout_margin="10dp"
             android:layout_centerInParent="true"
