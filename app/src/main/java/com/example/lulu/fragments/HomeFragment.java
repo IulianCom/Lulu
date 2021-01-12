@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lulu.R;
 import com.example.lulu.adapters.SingerAdapter;
 import com.example.lulu.classes.Singer;
+import com.example.lulu.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,6 +41,7 @@ import static com.example.lulu.FirebaseHelper.adminUUID;
 import static com.example.lulu.FirebaseHelper.mAuth;
 import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 import static com.example.lulu.FirebaseHelper.singerDatabase;
+import static com.example.lulu.FirebaseHelper.userDatabase;
 
 public class HomeFragment extends Fragment {
     private View view;
@@ -46,6 +49,7 @@ public class HomeFragment extends Fragment {
     private LinearLayout adminLl;
     private EditText newSingerEt;
     private Button addBtn;
+    private TextView welcomeTv;
 
     private UUID randomUUID;
     ArrayList<Singer> singers;
@@ -62,6 +66,20 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        userDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User currentUser = snapshot.getValue(User.class);
+                if(!currentUser.getName().isEmpty())
+                    welcomeTv.setText(welcomeTv.getText().toString() + ", " + currentUser.getName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         if(singerDatabase!=null){
             singerDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -85,6 +103,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeViews() {
+        welcomeTv = view.findViewById(R.id.welcome_tv);
         recyclerView = view.findViewById(R.id.home_rv);
         if(mAuth.getCurrentUser().getUid().equals(adminUUID)) {
             adminLl = view.findViewById(R.id.ll_add_singer);

@@ -21,6 +21,7 @@ import static com.example.lulu.FirebaseHelper.userDatabase;
 public class RegisterActivity extends AppCompatActivity {
     private EditText nameEt, emailEt, passwordEt;
     private Button createBtn;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,14 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Couldn't register", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            User user = new User(email, pass);
-                            userDatabase.child(mAuth.getCurrentUser().getUid())
-                                    .setValue(user);
+                            String name = nameEt.getText().toString();
+                            if(name.isEmpty()) {
+                                user = new User(email, pass);
+                            }
+                            else
+                                user = new User(email, pass, name);
+
+                            userDatabase.child(mAuth.getCurrentUser().getUid()).setValue(user);
                             startActivity(new Intent(RegisterActivity.this, WelcomeActivity.class));
                         }
                     }

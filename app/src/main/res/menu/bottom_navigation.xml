@@ -10,13 +10,13 @@
         android:icon="@drawable/ic_baseline_search_24"
         android:title="Search" />
     <item
-    android:id="@+id/nav_library"
-    android:icon="@drawable/ic_baseline_library_music_24"
-    android:title="Library" />
+        android:id="@+id/nav_library"
+        android:icon="@drawable/ic_baseline_library_music_24"
+        android:title="Library" />
 
     <item
         android:id="@+id/nav_premium"
-        android:icon="@drawable/ic_baseline_monetization_on_24"
-        android:title="Premium" />
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="@string/title_account" />
 
 </menu>
