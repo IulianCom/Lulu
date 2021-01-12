@@ -7,6 +7,7 @@ public class Singers {
     public Singers() {
     }
 
+
     public Singers(String name, String purl) {
         this.name = name;
         this.purl = purl;

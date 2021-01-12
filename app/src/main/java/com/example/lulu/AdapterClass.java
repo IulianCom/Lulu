@@ -1,6 +1,8 @@
 package com.example.lulu;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import static com.example.lulu.FirebaseHelper.mImagesRef;
+import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder>{
 
     ArrayList<Singers> list;
+    Context context;
 
-    public AdapterClass(ArrayList<Singers> list){
+    public AdapterClass(ArrayList<Singers> list, Context context){
 
         this.list=list;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -36,9 +43,26 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
 
         holder.name.setText(list.get(position).getName());
 
-        Glide.with(holder.singerImage.getContext()).load(list.get(position).getPurl()).into(holder.singerImage);
+        StorageReference ref = mSingersImagesRef.child(list.get(position).getPurl());
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(holder.singerImage.getContext())
+                        .load(uri)
+                        .into(holder.singerImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
 
+            }
+        });
 
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, SingerActivity.class);
+            intent.putExtra("uuid", list.get(position).getPurl());
+            context.startActivity(intent);
+        });
     }
 
     @Override
