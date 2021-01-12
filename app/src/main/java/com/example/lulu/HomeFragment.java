@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,7 +29,7 @@ import java.util.UUID;
 import static android.app.Activity.RESULT_OK;
 import static com.example.lulu.FirebaseHelper.adminUUID;
 import static com.example.lulu.FirebaseHelper.mAuth;
-import static com.example.lulu.FirebaseHelper.mImagesRef;
+import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 import static com.example.lulu.FirebaseHelper.singerDatabase;
 
 public class HomeFragment extends Fragment {
@@ -62,7 +61,7 @@ public class HomeFragment extends Fragment {
                 String singerName = newSingerEt.getText().toString();
                 if(!singerName.isEmpty()) {
                     randomUUID = UUID.randomUUID();
-                    singerDatabase.child(randomUUID.toString()).setValue(new Singers(singerName, "gs://lulu-30eba.appspot.com/singers_image/" + randomUUID.toString()));
+                    singerDatabase.child(randomUUID.toString()).setValue(new Singers(singerName, randomUUID.toString()));
                     addPhotoToDatabase();
                 }
                 else{
@@ -92,7 +91,7 @@ public class HomeFragment extends Fragment {
         pd.setTitle("Uploading image");
         pd.show();
 
-        StorageReference riversRef = mImagesRef.child(randomUUID.toString());
+        StorageReference riversRef = mSingersImagesRef.child(randomUUID.toString());
 
         riversRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

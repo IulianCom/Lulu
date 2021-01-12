@@ -26,6 +26,7 @@
         app:queryHint="Search"
         android:layout_width="370dp"
         android:layout_below="@+id/search_tv"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"

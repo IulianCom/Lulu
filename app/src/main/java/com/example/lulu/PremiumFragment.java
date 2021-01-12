@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import static com.example.lulu.FirebaseHelper.mImagesRef;
+import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 
 public class PremiumFragment extends Fragment {
     TextView textView;
@@ -19,7 +19,7 @@ public class PremiumFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_premium,container,false);
         textView = view.findViewById(R.id.test);
-        textView.setText(mImagesRef.getName());
+        textView.setText(mSingersImagesRef.getName());
         return view;
 
     }

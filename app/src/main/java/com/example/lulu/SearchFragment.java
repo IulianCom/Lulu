@@ -50,7 +50,7 @@ public class SearchFragment extends Fragment {
 
                             list.add(ds.getValue(Singers.class));
                         }
-                        AdapterClass adapterClass =new AdapterClass(list);
+                        AdapterClass adapterClass =new AdapterClass(list, getContext());
                         recyclerView.setAdapter(adapterClass);
                     }
                 }
@@ -84,7 +84,7 @@ public class SearchFragment extends Fragment {
                 singerList.add(object);
             }
         }
-        AdapterClass adapterClass = new AdapterClass(singerList);
+        AdapterClass adapterClass = new AdapterClass(singerList, getContext());
         recyclerView.setAdapter(adapterClass);
     }
 }
