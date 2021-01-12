@@ -1,4 +1,4 @@
-package com.example.lulu;
+package com.example.lulu.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lulu.R;
+import com.example.lulu.adapters.SingerAdapter;
+import com.example.lulu.classes.Singer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,15 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.lulu.FirebaseHelper.singerDatabase;
+
 public class SearchFragment extends Fragment {
-    DatabaseReference ref;
     ArrayList<Singer> list;
     RecyclerView recyclerView;
     SearchView searchView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ref = FirebaseDatabase.getInstance().getReference().child("singers");
         View view = inflater.inflate(R.layout.fragment_search,container,false);
         recyclerView = view.findViewById(R.id.rv);
         searchView = view.findViewById(R.id.sv);
@@ -37,8 +40,8 @@ public class SearchFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(ref!=null){
-            ref.addValueEventListener(new ValueEventListener() {
+        if(singerDatabase!=null){
+            singerDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -48,8 +51,8 @@ public class SearchFragment extends Fragment {
 
                             list.add(ds.getValue(Singer.class));
                         }
-                        AdapterClass adapterClass =new AdapterClass(list, getContext());
-                        recyclerView.setAdapter(adapterClass);
+                        SingerAdapter singerAdapter =new SingerAdapter(list, getContext());
+                        recyclerView.setAdapter(singerAdapter);
                     }
                 }
 
@@ -82,7 +85,7 @@ public class SearchFragment extends Fragment {
                 singerList.add(object);
             }
         }
-        AdapterClass adapterClass = new AdapterClass(singerList, getContext());
-        recyclerView.setAdapter(adapterClass);
+        SingerAdapter singerAdapter = new SingerAdapter(singerList, getContext());
+        recyclerView.setAdapter(singerAdapter);
     }
 }

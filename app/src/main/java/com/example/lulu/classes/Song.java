@@ -1,4 +1,4 @@
-package com.example.lulu;
+package com.example.lulu.classes;
 
 public class Song {
     private String name;

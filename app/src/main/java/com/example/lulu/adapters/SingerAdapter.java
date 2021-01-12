@@ -1,4 +1,4 @@
-package com.example.lulu;
+package com.example.lulu.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.lulu.R;
+import com.example.lulu.activities.SingerActivity;
+import com.example.lulu.classes.Singer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
@@ -21,25 +24,25 @@ import java.util.ArrayList;
 
 import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 
-public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder>{
+public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.SingerViewHolder>{
 
     ArrayList<Singer> list;
     Context context;
 
-    public AdapterClass(ArrayList<Singer> list, Context context){
+    public SingerAdapter(ArrayList<Singer> list, Context context){
 
         this.list=list;
         this.context = context;
     }
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SingerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.singer_item,parent,false);
-        return new MyViewHolder(view);
+        return new SingerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SingerViewHolder holder, int position) {
 
         holder.name.setText(list.get(position).getName());
 
@@ -70,10 +73,10 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.MyViewHolder
         return list.size();
     }
 
-    class  MyViewHolder extends RecyclerView.ViewHolder{
+    class SingerViewHolder extends RecyclerView.ViewHolder{
         TextView name;
         ImageView singerImage;
-        public MyViewHolder(@NonNull View itemView){
+        public SingerViewHolder(@NonNull View itemView){
             super(itemView);
             name=itemView.findViewById(R.id.singers_name);
             singerImage=itemView.findViewById(R.id.singer_image);

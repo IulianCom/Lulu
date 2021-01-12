@@ -1,4 +1,4 @@
-package com.example.lulu;
+package com.example.lulu.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.lulu.R;
 
 import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
 

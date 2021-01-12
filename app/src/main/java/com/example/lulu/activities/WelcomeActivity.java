@@ -1,4 +1,4 @@
-package com.example.lulu;
+package com.example.lulu.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.example.lulu.fragments.HomeFragment;
+import com.example.lulu.fragments.LibraryFragment;
+import com.example.lulu.fragments.PremiumFragment;
+import com.example.lulu.R;
+import com.example.lulu.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class WelcomeActivity extends AppCompatActivity {

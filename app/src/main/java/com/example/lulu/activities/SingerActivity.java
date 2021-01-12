@@ -1,4 +1,4 @@
-package com.example.lulu;
+package com.example.lulu.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.lulu.R;
+import com.example.lulu.adapters.SingerAdapter;
+import com.example.lulu.adapters.SongAdapter;
+import com.example.lulu.classes.Singer;
+import com.example.lulu.classes.Song;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.example.lulu.FirebaseHelper.adminUUID;
@@ -41,6 +48,7 @@ public class SingerActivity extends AppCompatActivity {
     private EditText newSongLinkEt;
     private Button addBtn;
     private String singerUUID;
+    private ArrayList<Song> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +62,40 @@ public class SingerActivity extends AppCompatActivity {
         updateUI(singerDatabase.child(singerUUID));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        populateRecyclerView(songsDatabase.child(singerUUID));
+
+    }
+
+    private void populateRecyclerView(DatabaseReference ref) {
+        if(ref != null){
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        list = new ArrayList<>();
+                        for(DataSnapshot ds : snapshot.getChildren()) {
+                            list.add(ds.getValue(Song.class));
+                        }
+                        SongAdapter songAdapter = new SongAdapter(list, getApplicationContext());
+                        recyclerView.setAdapter(songAdapter);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Toast.makeText(SearchFragment.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     private void initializeViews() {
         singerName = findViewById(R.id.singer_name);
         singerImage = findViewById(R.id.singer_image);
+        recyclerView = findViewById(R.id.rv_singer);
 
         if(mAuth.getCurrentUser().getUid().equals(adminUUID)) {
             adminLl = findViewById(R.id.ll_add_song);
