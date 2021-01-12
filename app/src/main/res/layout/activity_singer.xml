@@ -25,44 +25,52 @@
         android:fontFamily="@font/gotham_book"
         android:textColor="@color/paletteWhite"
         android:layout_centerHorizontal="true" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_singer"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_below="@+id/singer_name"
-        android:layout_margin="5dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_singer"
+                android:layout_width="match_parent"
+                android:layout_margin="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_height="wrap_content"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ll_add_song"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/rv_singer"
-        android:orientation="vertical">
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/ll_add_song"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/rv_singer"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_song_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="Enter sing name"
-            android:scrollbars="vertical" />
-        <EditText
-            android:id="@+id/et_song_link"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="Enter song link"
-            android:scrollbars="vertical" />
-        <Button
-            android:id="@+id/btn_add_song"
-            android:layout_width="wrap_content"
-            android:text="Add song"
-            android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/et_song_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:hint="Enter sing name"
+                    android:scrollbars="vertical" />
+                <EditText
+                    android:id="@+id/et_song_link"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:hint="Enter song link"
+                    android:scrollbars="vertical" />
+                <Button
+                    android:id="@+id/btn_add_song"
+                    android:layout_width="wrap_content"
+                    android:text="Add song"
+                    android:layout_height="wrap_content"/>
 
-    </LinearLayout>
-
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

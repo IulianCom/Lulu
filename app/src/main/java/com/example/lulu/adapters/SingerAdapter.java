@@ -19,7 +19,6 @@ import com.example.lulu.classes.Singer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
-
 import java.util.ArrayList;
 
 import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
