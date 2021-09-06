@@ -12,7 +12,6 @@ public class FirebaseHelper {
     public static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public static final FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     public static final DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference("users");
-    public static final DatabaseReference singerDatabase = FirebaseDatabase.getInstance().getReference("singers");
     public static final DatabaseReference artistSongsDatabase = FirebaseDatabase.getInstance().getReference("songs");
     public static final DatabaseReference likedSongsDatabase = FirebaseDatabase.getInstance().getReference("likedSongs");
 

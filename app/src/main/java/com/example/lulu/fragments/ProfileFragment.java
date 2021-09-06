@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initializeViews() {
-        nameEt = view.findViewById(R.id.et_name);
+        nameEt = view.findViewById(R.id.activity_player_tv_song_name);
         emailTv = view.findViewById(R.id.tv_email);
         saveDataBtn = view.findViewById(R.id.btn_save_data);
     }

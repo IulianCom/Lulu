@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initializeViews(){
-        nameEt = findViewById(R.id.et_name);
+        nameEt = findViewById(R.id.activity_player_tv_song_name);
         emailEt = findViewById(R.id.et_email);
         passwordEt = findViewById(R.id.et_password);
         createBtn = findViewById(R.id.btn_create);

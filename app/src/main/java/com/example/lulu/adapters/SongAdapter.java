@@ -11,10 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lulu.R;
+import com.example.lulu.activities.PlayerActivity;
+import com.example.lulu.classes.ArtistSong;
 import com.example.lulu.classes.Song;
+import com.example.lulu.utils.FirebaseHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -24,6 +35,7 @@ import static com.example.lulu.utils.FirebaseHelper.mAuth;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>{
 
     ArrayList<Song> list;
+    ArrayList<ArtistSong> artistSongs;
     Context context;
 
     public SongAdapter(ArrayList<Song> list, Context context){
@@ -34,6 +46,24 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     @Override
     public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item,parent,false);
+        DatabaseReference ref = FirebaseHelper.artistSongsDatabase;
+        artistSongs = new ArrayList<>();
+        for (Song song : list) {
+            ref.child(song.getAdderUuid())
+                    .child(song.getUuid())
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            artistSongs.add(snapshot.getValue(ArtistSong.class));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        }
+
         return new SongViewHolder(view);
     }
 
@@ -43,7 +73,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         holder.name.setText(currentSong.getName());
 
         holder.itemView.setOnClickListener(view -> {
-            //goToWebPage(currentSong.getYoutubeLink());
+            Intent intent = new Intent(context, PlayerActivity.class);
+            intent.putExtra("songs", artistSongs);
+            intent.putExtra("currentSong", artistSongs.get(position));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         });
 
         holder.likedSong.setChecked(currentSong.isFavourite());
@@ -59,13 +93,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                 likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).child(currentSong.getUuid()).removeValue();
             }
         });
-    }
-
-    private void goToWebPage(String yourUrl) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setData(Uri.parse(yourUrl));
-        context.startActivity(intent);
     }
 
     @Override

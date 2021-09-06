@@ -20,21 +20,21 @@ import com.example.lulu.R;
 import com.example.lulu.adapters.SongAdapter;
 import com.example.lulu.classes.Singer;
 import com.example.lulu.classes.Song;
+import com.example.lulu.utils.FirebaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static com.example.lulu.utils.FirebaseHelper.likedSongsDatabase;
 import static com.example.lulu.utils.FirebaseHelper.mAuth;
 import static com.example.lulu.utils.FirebaseHelper.mSingersImagesRef;
 import static com.example.lulu.utils.FirebaseHelper.artistSongsDatabase;
-import static com.example.lulu.utils.FirebaseHelper.singerDatabase;
-import static com.example.lulu.utils.FirebaseHelper.userDatabase;
+import static com.example.lulu.utils.FirebaseHelper.mStorageRef;
 
 public class SingerActivity extends AppCompatActivity {
     private TextView singerName;
@@ -53,7 +53,7 @@ public class SingerActivity extends AppCompatActivity {
         singerUUID = intent.getStringExtra("uuid");
 
         initializeViews();
-        updateUI(singerDatabase.child(singerUUID));
+        updateUI(FirebaseHelper.artistSongsDatabase.child(singerUUID));
     }
 
     @Override
@@ -118,9 +118,9 @@ public class SingerActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Singer currentSinger = snapshot.getValue(Singer.class);
                 singerName.setText(currentSinger.getName());
-                StorageReference ref = mSingersImagesRef.child(currentSinger.getPurl());
+                StorageReference ref = mStorageRef.child("users/" + singerUUID + "/profile.jpg");
                 ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                        Glide.with(singerImage.getContext())
+                        Picasso.get()
                                 .load(uri)
                                 .into(singerImage);
                 }).addOnFailureListener(e -> {

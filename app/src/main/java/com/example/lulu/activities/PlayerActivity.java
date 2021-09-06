@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,8 @@ public class PlayerActivity extends AppCompatActivity {
     private SeekBar mMusicSb;
     private ImageView mPlayIv;
     private ImageView mPauseIv;
+
+    private TextView mSongNameTv;
 
     private MediaPlayer mMediaPlayer;
     private ArrayList<ArtistSong> songQueue;
@@ -54,6 +57,7 @@ public class PlayerActivity extends AppCompatActivity {
                     Log.e("asda", "onCreate: " + e.getLocalizedMessage(), e);
                 });
         initializeViews();
+        mSongNameTv.setText(currentSong.getName());
         setListeners();
     }
 
@@ -110,6 +114,7 @@ public class PlayerActivity extends AppCompatActivity {
         mMusicSb = findViewById(R.id.sb_activity_player);
         mPlayIv = findViewById(R.id.iv_activity_player_play);
         mPauseIv = findViewById(R.id.iv_activity_player_pause);
+        mSongNameTv = findViewById(R.id.activity_player_tv_song_name);
     }
 
     public void getMaxDuration() {

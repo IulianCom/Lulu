@@ -16,13 +16,12 @@ import com.example.lulu.R;
 import com.example.lulu.adapters.SingerAdapter;
 import com.example.lulu.classes.Singer;
 import com.example.lulu.classes.User;
+import com.example.lulu.utils.FirebaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
-import static com.example.lulu.utils.FirebaseHelper.singerDatabase;
 import static com.example.lulu.utils.FirebaseHelper.userDatabase;
 
 public class SearchFragment extends Fragment {
@@ -58,13 +57,15 @@ public class SearchFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        singerDatabase.addValueEventListener(new ValueEventListener() {
+        userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     list = new ArrayList<>();
                     for(DataSnapshot ds : snapshot.getChildren()){
                         User user = ds.getValue(User.class);
+                        if(!User.ARTIST_USER_TYPE.equals(user.getUserType()))
+                            continue;
                         list.add(user);
                     }
                     SingerAdapter singerAdapter = new SingerAdapter(list, getContext());

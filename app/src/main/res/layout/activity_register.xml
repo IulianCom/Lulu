@@ -21,7 +21,7 @@
     </TextView>
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/activity_player_tv_song_name"
         android:layout_marginStart="20dp"
         android:paddingStart="10dp"
         android:fontFamily="@font/gotham_book"
@@ -39,7 +39,7 @@
         android:layout_marginTop="40dp"
         android:text="Email"
         android:textSize="30dp"
-        android:layout_below="@+id/et_name"
+        android:layout_below="@+id/activity_player_tv_song_name"
         android:fontFamily="@font/gotham_book"
         android:textColor="@color/paletteWhite"
         android:layout_width="wrap_content"

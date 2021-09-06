@@ -19,10 +19,7 @@ import android.widget.Toast;
 
 import com.example.lulu.R;
 import com.example.lulu.classes.User;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.example.lulu.utils.FirebaseHelper;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
@@ -31,9 +28,6 @@ import java.util.UUID;
 import static android.app.Activity.RESULT_OK;
 import static com.example.lulu.utils.FirebaseHelper.mAuth;
 import static com.example.lulu.utils.FirebaseHelper.mStorageRef;
-import static com.example.lulu.utils.FirebaseHelper.singerDatabase;
-import static com.example.lulu.utils.FirebaseHelper.userDatabase;
-
 
 public class ArtistProfileFragment extends Fragment {
     private ImageView singerImage;
@@ -69,7 +63,7 @@ public class ArtistProfileFragment extends Fragment {
         saveDataBtn.setOnClickListener(v -> {
             String name = nameEt.getText().toString();
             if(!name.isEmpty()) {
-                singerDatabase.child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
+                FirebaseHelper.artistSongsDatabase.child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
             }
             else {
                 Toast.makeText(view.getContext(), "Name field must not be empty", Toast.LENGTH_SHORT).show();
@@ -115,7 +109,7 @@ public class ArtistProfileFragment extends Fragment {
     }
 
     private void initializeViews() {
-        nameEt = view.findViewById(R.id.et_name);
+        nameEt = view.findViewById(R.id.activity_player_tv_song_name);
         emailTv = view.findViewById(R.id.tv_email);
         saveDataBtn = view.findViewById(R.id.btn_save_data);
         changePhoto = view.findViewById(R.id.changePhoto_btn);

@@ -20,9 +20,12 @@ import com.example.lulu.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import static com.example.lulu.utils.FirebaseHelper.mSingersImagesRef;
+import static com.example.lulu.utils.FirebaseHelper.mStorageRef;
 
 public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.SingerViewHolder>{
 
@@ -36,28 +39,20 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.SingerView
     @NonNull
     @Override
     public SingerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.singer_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.singer_item, parent,false);
         return new SingerViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SingerViewHolder holder, int position) {
         holder.name.setText(list.get(position).getName());
-        StorageReference ref = mSingersImagesRef.child(list.get(position).getUuid());
-        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(holder.singerImage.getContext())
-                        .load(uri)
-                        .into(holder.singerImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-            }
-        });
-
+        mStorageRef.child("users/" + list.get(position)
+                .getUuid() + "/profile.jpg")
+                .getDownloadUrl().addOnSuccessListener(uri -> {
+                    Picasso.get()
+                            .load(uri)
+                            .into(holder.singerImage);
+                });
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, SingerActivity.class);
             intent.putExtra("uuid", list.get(position).getUuid());
