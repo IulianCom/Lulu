@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lulu.R;
+import com.example.lulu.activities.MainActivity;
 import com.example.lulu.classes.User;
 import com.example.lulu.utils.FirebaseHelper;
 import com.google.firebase.storage.StorageReference;
@@ -36,6 +37,7 @@ public class ArtistProfileFragment extends Fragment {
     TextView emailTv;
     Button changePhoto;
     Button saveDataBtn;
+    private Button mLogoutBtn;
     private UUID randomUUID;
 
     private User user;
@@ -68,6 +70,10 @@ public class ArtistProfileFragment extends Fragment {
             else {
                 Toast.makeText(view.getContext(), "Name field must not be empty", Toast.LENGTH_SHORT).show();
             }
+        });
+        mLogoutBtn.setOnClickListener(v -> {
+            mAuth.signOut();
+            startActivity(new Intent(getContext(), MainActivity.class));
         });
         return view;
 
@@ -114,6 +120,7 @@ public class ArtistProfileFragment extends Fragment {
         saveDataBtn = view.findViewById(R.id.btn_save_data);
         changePhoto = view.findViewById(R.id.changePhoto_btn);
         singerImage = view.findViewById(R.id.singer_image);
+        mLogoutBtn = view.findViewById(R.id.btn_logout);
 
         StorageReference profileRef = mStorageRef.child("users/" + user.getUuid() + "/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(uri -> {

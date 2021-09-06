@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class ArtistSong extends Song implements Serializable {
-    private int likesCount;
+    private int likesCount = 0;
     private String fileExtension;
 
     public ArtistSong() {

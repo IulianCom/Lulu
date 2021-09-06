@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.lulu.utils.FirebaseHelper.mAuth;
 import static com.example.lulu.utils.FirebaseHelper.userDatabase;
 
 public class HomeFragment extends Fragment {
@@ -73,6 +74,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                if(mAuth.getUid() == null)
+                    return;
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

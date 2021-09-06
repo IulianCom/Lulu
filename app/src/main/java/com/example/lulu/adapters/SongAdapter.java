@@ -29,8 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.lulu.utils.FirebaseHelper.artistSongsDatabase;
 import static com.example.lulu.utils.FirebaseHelper.likedSongsDatabase;
 import static com.example.lulu.utils.FirebaseHelper.mAuth;
+import static com.example.lulu.utils.FirebaseHelper.userDatabase;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>{
 
@@ -39,7 +41,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     Context context;
 
     public SongAdapter(ArrayList<Song> list, Context context){
-        this.list=list;
+        this.list = list;
         this.context = context;
     }
     @NonNull
@@ -79,18 +81,17 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });
-
         holder.likedSong.setChecked(currentSong.isFavourite());
-
-
         holder.likedSong.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            currentSong.setFavourite(isChecked);
+            likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).child(currentSong.getUuid()).setValue(currentSong);
             if(isChecked) {
-                currentSong.setFavourite(true);
-                likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).child(currentSong.getUuid()).setValue(currentSong);
+                artistSongsDatabase.child(currentSong.getAdderUuid()).child(currentSong.getUuid()).child("likesCount").setValue(artistSongs.get(position).getLikesCount() + 1);
+                currentSong.incrementAppreciations();
             }
             else {
-                currentSong.setFavourite(false);
-                likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).child(currentSong.getUuid()).removeValue();
+                artistSongsDatabase.child(currentSong.getAdderUuid()).child(currentSong.getUuid()).child("likesCount").setValue(artistSongs.get(position).getLikesCount() - 1);
+                currentSong.decrementAppreciations();
             }
         });
     }

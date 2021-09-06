@@ -14,12 +14,7 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String userType;
-
-//    public User(String email, String password, String userType) {
-//        this.email = email;
-//        this.password = password;
-//        this.userType= userType;
-//    }
+    private int appreciations = 0;
 
 
     public String getUuid() {
@@ -36,6 +31,7 @@ public class User implements Serializable {
         this.password = password;
         this.name = name;
         this.userType= userType;
+        this.appreciations = 0;
     }
 
     public User(){}
@@ -67,6 +63,14 @@ public class User implements Serializable {
     public String getUserType() { return userType; }
 
     public void setUserType(String userType) { this.userType = userType; }
+
+    public int getAppreciations() {
+        return appreciations;
+    }
+
+    public void setAppreciations(int appreciations) {
+        this.appreciations = appreciations;
+    }
 
     @Override
     public String toString() {

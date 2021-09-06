@@ -1,5 +1,7 @@
 package com.example.lulu.classes;
 
+import com.example.lulu.utils.FirebaseHelper;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -44,6 +46,22 @@ public class Song implements Serializable {
 
     public void setAdderUuid(String adderUuid) {
         this.adderUuid = adderUuid;
+    }
+
+    public void incrementAppreciations() {
+        FirebaseHelper.userDatabase.child(adderUuid).get().addOnSuccessListener(dataSnapshot -> {
+            User adder = dataSnapshot.getValue(User.class);
+            adder.setAppreciations(adder.getAppreciations() + 1);
+            FirebaseHelper.userDatabase.child(adderUuid).setValue(adder);
+        });
+    }
+
+    public void decrementAppreciations() {
+        FirebaseHelper.userDatabase.child(adderUuid).get().addOnSuccessListener(dataSnapshot -> {
+            User adder = dataSnapshot.getValue(User.class);
+            adder.setAppreciations(adder.getAppreciations() - 1);
+            FirebaseHelper.userDatabase.child(adderUuid).setValue(adder);
+        });
     }
 
     @Override

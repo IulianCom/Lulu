@@ -1,5 +1,6 @@
 package com.example.lulu.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.lulu.R;
+import com.example.lulu.activities.MainActivity;
 import com.example.lulu.classes.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +29,7 @@ public class ProfileFragment extends Fragment {
     EditText nameEt;
     TextView emailTv;
     Button saveDataBtn;
+    private Button mLogoutBtn;
 
     private User user;
 
@@ -53,6 +56,10 @@ public class ProfileFragment extends Fragment {
             else {
                 Toast.makeText(view.getContext(), "Name field must not be empty", Toast.LENGTH_SHORT).show();
             }
+        });
+        mLogoutBtn.setOnClickListener(v -> {
+            mAuth.signOut();
+            startActivity(new Intent(getContext(), MainActivity.class));
         });
         return view;
 
@@ -81,9 +88,6 @@ public class ProfileFragment extends Fragment {
         nameEt = view.findViewById(R.id.activity_player_tv_song_name);
         emailTv = view.findViewById(R.id.tv_email);
         saveDataBtn = view.findViewById(R.id.btn_save_data);
+        mLogoutBtn = view.findViewById(R.id.btn_logout);
     }
-
-
-
-
 }

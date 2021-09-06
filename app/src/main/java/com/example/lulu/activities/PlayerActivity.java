@@ -7,10 +7,15 @@ import com.example.lulu.classes.ArtistSong;
 import com.example.lulu.utils.FirebaseHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -23,6 +28,7 @@ public class PlayerActivity extends AppCompatActivity {
     private SeekBar mMusicSb;
     private ImageView mPlayIv;
     private ImageView mPauseIv;
+    private ImageView mLikeIv;
 
     private TextView mSongNameTv;
 
@@ -58,6 +64,19 @@ public class PlayerActivity extends AppCompatActivity {
                 });
         initializeViews();
         mSongNameTv.setText(currentSong.getName());
+        DatabaseReference favoriteGetter = FirebaseHelper.likedSongsDatabase.child(FirebaseHelper.mAuth.getCurrentUser().getUid()).child(currentSong.getUuid());
+        favoriteGetter.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    mLikeIv.setImageResource(R.drawable.ic_heart);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("canceled", "onCancelled: " + error.getDetails());
+            }
+        });
         setListeners();
     }
 
@@ -115,6 +134,7 @@ public class PlayerActivity extends AppCompatActivity {
         mPlayIv = findViewById(R.id.iv_activity_player_play);
         mPauseIv = findViewById(R.id.iv_activity_player_pause);
         mSongNameTv = findViewById(R.id.activity_player_tv_song_name);
+        mLikeIv = findViewById(R.id.btn_like);
     }
 
     public void getMaxDuration() {

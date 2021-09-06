@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         regularCkb = findViewById(R.id.ckb_regular);
         artistCkb = findViewById(R.id.ckb_artist);
 
+        regularCkb.setChecked(true);
         regularCkb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -71,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Complete fields", Toast.LENGTH_SHORT).show();
             }
             else {
-                mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(email.trim(),pass).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()) {

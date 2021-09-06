@@ -1,6 +1,5 @@
 package com.example.lulu.fragments;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,19 +12,16 @@ import android.widget.TextView;
 
 import com.example.lulu.R;
 import com.example.lulu.classes.User;
-import com.example.lulu.utils.FirebaseHelper;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import static com.example.lulu.utils.FirebaseHelper.mAuth;
 import static com.example.lulu.utils.FirebaseHelper.mStorageRef;
 
 public class ArtistHomeFragment extends Fragment {
 
     private ImageView mArtistProfilePictureIv;
     private TextView mArtistNameTv;
-    private TextView mArtistNumberOfFollowersTv;
+    private TextView mArtistNumberOfAppreciationsTv;
 
     private User user;
 
@@ -60,7 +56,7 @@ public class ArtistHomeFragment extends Fragment {
     public void initializeViews(View view) {
         mArtistProfilePictureIv = view.findViewById(R.id.fragment_artist_home_iv_artist_image);
         mArtistNameTv = view.findViewById(R.id.fragment_artist_home_tv_artist_name);
-        mArtistNumberOfFollowersTv = view.findViewById(R.id.fragment_artist_home_tv_artist_followers);
+        mArtistNumberOfAppreciationsTv = view.findViewById(R.id.fragment_artist_home_tv_artist_followers);
     }
 
     public void loadDataIntoFields() {
@@ -69,7 +65,7 @@ public class ArtistHomeFragment extends Fragment {
             Picasso.get().load(uri).into(mArtistProfilePictureIv);
         });
         mArtistNameTv.setText("".equals(user.getName()) ? "" : user.getName());
-
+        mArtistNumberOfAppreciationsTv.setText(String.valueOf(user.getAppreciations()));
     }
 
 }
