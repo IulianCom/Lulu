@@ -9,6 +9,7 @@
         android:id="@+id/welcome_tv"
         android:layout_width="wrap_content"
         android:text="Welcome"
+        android:layout_margin="15dp"
         android:fontFamily="@font/gotham_book"
         android:textSize="40dp"
         android:textColor="@color/paletteWhite"
@@ -28,31 +29,6 @@
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                android:id="@+id/ll_add_singer"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-
-                android:layout_below="@+id/home_rv"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/et_singer_name"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:hint="Enter singer name"
-                    android:scrollbars="vertical" />
-                <Button
-                    android:id="@+id/add_singer_btn"
-                    android:layout_width="wrap_content"
-                    android:text="Add singer"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

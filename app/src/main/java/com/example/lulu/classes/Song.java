@@ -1,20 +1,21 @@
 package com.example.lulu.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Song {
-    private String name;
-    private String youtubeLink;
+public class Song implements Serializable {
     private String uuid;
+    private String name;
     private boolean isFavourite;
+    private String adderUuid;
 
     public Song() {}
 
-    public Song(String name, String youtubeLink, String uuid) {
-        this.name = name;
-        this.youtubeLink = youtubeLink;
+    public Song(String name, String uuid, String adderUuid) {
         this.uuid = uuid;
+        this.name = name;
         this.isFavourite = false;
+        this.adderUuid = adderUuid;
     }
 
     public String getName() {
@@ -25,20 +26,8 @@ public class Song {
         this.name = name;
     }
 
-    public String getYoutubeLink() {
-        return youtubeLink;
-    }
-
-    public void setYoutubeLink(String youtubeLink) {
-        this.youtubeLink = youtubeLink;
-    }
-
     public String getUuid() {
         return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public boolean isFavourite() {
@@ -49,13 +38,29 @@ public class Song {
         isFavourite = favourite;
     }
 
+    public String getAdderUuid() {
+        return adderUuid;
+    }
+
+    public void setAdderUuid(String adderUuid) {
+        this.adderUuid = adderUuid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Song song = (Song) o;
         return Objects.equals(name, song.name) &&
-                Objects.equals(youtubeLink, song.youtubeLink) &&
                 Objects.equals(uuid, song.uuid);
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "name='" + name + '\'' +
+                ", uuid='" + uuid + '\'' +
+                ", isFavourite=" + isFavourite +
+                '}';
     }
 }

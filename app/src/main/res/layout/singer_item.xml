@@ -12,7 +12,6 @@
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/singer_image"
-            android:src="@mipmap/ic_launcher"
             android:layout_width="130dp"
             android:layout_height="130dp"/>
         <TextView

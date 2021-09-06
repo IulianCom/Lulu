@@ -13,25 +13,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lulu.R;
 import com.example.lulu.adapters.SongAdapter;
 import com.example.lulu.classes.Song;
+import com.example.lulu.classes.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.lulu.FirebaseHelper.likedSongsDatabase;
-import static com.example.lulu.FirebaseHelper.mAuth;
+import static com.example.lulu.utils.FirebaseHelper.likedSongsDatabase;
+import static com.example.lulu.utils.FirebaseHelper.mAuth;
 
 public class LibraryFragment extends Fragment {
 
     private View view;
     private RecyclerView recyclerView;
     private ArrayList<Song> favoriteSongs;
+    private User user;
+
+    public static LibraryFragment newInstance(User user) {
+        Bundle args = new Bundle();
+        args.putSerializable("user", user);
+        LibraryFragment fragment = new LibraryFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_library,container,false);
+        user = (User) getArguments().getSerializable("user");
         initializeViews();
         return view;
     }

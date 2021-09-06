@@ -90,9 +90,34 @@
         android:inputType="textPassword">
 
     </EditText>
+    <CheckBox
+        android:id="@+id/ckb_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:fontFamily="@font/gotham_book"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/paletteWhite"
+        android:text="I'm an artist"
+        ></CheckBox>
+
+    <CheckBox
+        android:id="@+id/ckb_regular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_password"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="78dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@+id/ckb_artist"
+        android:fontFamily="@font/gotham_book"
+        android:text="I'm regular user"
+        android:textColor="@color/paletteWhite"></CheckBox>
+
     <Button
         android:id="@+id/btn_create"
-        android:layout_below="@+id/et_password"
+        android:layout_below="@+id/ckb_artist"
         android:layout_width="150dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/log_in_button"

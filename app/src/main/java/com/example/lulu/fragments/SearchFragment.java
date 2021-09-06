@@ -15,54 +15,68 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lulu.R;
 import com.example.lulu.adapters.SingerAdapter;
 import com.example.lulu.classes.Singer;
+import com.example.lulu.classes.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static com.example.lulu.FirebaseHelper.singerDatabase;
+import static com.example.lulu.utils.FirebaseHelper.singerDatabase;
+import static com.example.lulu.utils.FirebaseHelper.userDatabase;
 
 public class SearchFragment extends Fragment {
-    ArrayList<Singer> list;
+    ArrayList<User> list;
     RecyclerView recyclerView;
     SearchView searchView;
+
+    private User user;
+
+    public static SearchFragment newInstance(User user) {
+
+        Bundle args = new Bundle();
+        args.putSerializable("user", user);
+        SearchFragment fragment = new SearchFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search,container,false);
+        user = (User) getArguments().getSerializable("user");
+        initializeViews(view);
+        return view;
+    }
+
+    private void initializeViews(View view) {
         recyclerView = view.findViewById(R.id.rv);
         searchView = view.findViewById(R.id.sv);
-        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(singerDatabase!=null){
-            singerDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    if(snapshot.exists()){
-                        list = new ArrayList<>();
-                        for(DataSnapshot ds : snapshot.getChildren()){
-
-                            list.add(ds.getValue(Singer.class));
-                        }
-                        SingerAdapter singerAdapter =new SingerAdapter(list, getContext());
-                        recyclerView.setAdapter(singerAdapter);
+        singerDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    list = new ArrayList<>();
+                    for(DataSnapshot ds : snapshot.getChildren()){
+                        User user = ds.getValue(User.class);
+                        list.add(user);
                     }
+                    SingerAdapter singerAdapter = new SingerAdapter(list, getContext());
+                    recyclerView.setAdapter(singerAdapter);
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
         if(searchView!=null){
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -80,10 +94,10 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(String string){
-        ArrayList<Singer> singerList = new ArrayList<>();
-        for(Singer object : list){
-            if(object.getName().toLowerCase().contains(string.toLowerCase())){
-                singerList.add(object);
+        ArrayList<User> singerList = new ArrayList<>();
+        for(User user : list){
+            if(user.getName().toLowerCase().contains(string.toLowerCase())){
+                singerList.add(user);
             }
         }
         SingerAdapter singerAdapter = new SingerAdapter(singerList, getContext());

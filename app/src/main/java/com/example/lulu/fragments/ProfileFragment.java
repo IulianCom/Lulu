@@ -19,18 +19,31 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import static com.example.lulu.FirebaseHelper.mAuth;
-import static com.example.lulu.FirebaseHelper.userDatabase;
+import static com.example.lulu.utils.FirebaseHelper.mAuth;
+import static com.example.lulu.utils.FirebaseHelper.userDatabase;
 
-public class PremiumFragment extends Fragment {
+public class ProfileFragment extends Fragment {
     View view;
     EditText nameEt;
     TextView emailTv;
     Button saveDataBtn;
+
+    private User user;
+
+    public static ProfileFragment newInstance(User user) {
+
+        Bundle args = new Bundle();
+        args.putSerializable("user", user);
+        ProfileFragment fragment = new ProfileFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_premium,container,false);
+        user = (User) getArguments().getSerializable("user");
         initializeViews();
         saveDataBtn.setOnClickListener(v -> {
             String name = nameEt.getText().toString();

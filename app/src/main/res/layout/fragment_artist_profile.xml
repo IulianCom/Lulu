@@ -19,12 +19,33 @@
         android:layout_margin="10dp"
         android:layout_below="@+id/title_account">
 
+        <ImageView
+            android:id="@+id/singer_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+        <Button
+            android:id="@+id/changePhoto_btn"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/singer_image"
+            android:background="@drawable/log_in_button"
+            android:textColor="@color/darkGrey"
+            android:textSize="14dp"
+            android:fontFamily="@font/gotham_book"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Change photo"
+            ></Button>
+
         <TextView
             android:layout_marginStart="20dp"
             android:id="@+id/tv_email_name"
             android:layout_marginTop="40dp"
             android:text="Email"
             android:textSize="30dp"
+            android:layout_below="@+id/changePhoto_btn"
             android:fontFamily="@font/gotham_book"
             android:textColor="@color/paletteWhite"
             android:layout_width="wrap_content"
@@ -76,7 +97,6 @@
             android:textColor="@color/darkGrey"
             android:fontFamily="@font/gotham_book"
             android:text="SAVE DATA"/>
-
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="130dp"
@@ -88,6 +108,7 @@
             android:textColor="@color/darkGrey"
             android:fontFamily="@font/gotham_book"
             android:text="Log out"/>
+
     </RelativeLayout>
 
 

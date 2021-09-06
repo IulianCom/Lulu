@@ -26,13 +26,12 @@
             <SearchView
                 android:id="@+id/sv"
                 android:background="@color/darkGrey"
-                android:paddingStart="10dp"
+
                 android:textColor="@color/paletteWhite"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
+                android:layout_margin="10dp"
                 android:layout_height="35dp"
                 app:queryHint="Search"
-                android:layout_width="370dp"
+                android:layout_width="385dp"
                 android:layout_below="@+id/search_tv"/>
             <RelativeLayout
                 android:layout_width="wrap_content"

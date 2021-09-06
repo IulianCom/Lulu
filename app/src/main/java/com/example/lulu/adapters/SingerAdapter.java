@@ -16,20 +16,20 @@ import com.bumptech.glide.Glide;
 import com.example.lulu.R;
 import com.example.lulu.activities.SingerActivity;
 import com.example.lulu.classes.Singer;
+import com.example.lulu.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
-import static com.example.lulu.FirebaseHelper.mSingersImagesRef;
+import static com.example.lulu.utils.FirebaseHelper.mSingersImagesRef;
 
 public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.SingerViewHolder>{
 
-    ArrayList<Singer> list;
+    ArrayList<User> list;
     Context context;
 
-    public SingerAdapter(ArrayList<Singer> list, Context context){
-
+    public SingerAdapter(ArrayList<User> list, Context context){
         this.list=list;
         this.context = context;
     }
@@ -42,10 +42,8 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.SingerView
 
     @Override
     public void onBindViewHolder(@NonNull SingerViewHolder holder, int position) {
-
         holder.name.setText(list.get(position).getName());
-
-        StorageReference ref = mSingersImagesRef.child(list.get(position).getPurl());
+        StorageReference ref = mSingersImagesRef.child(list.get(position).getUuid());
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -62,7 +60,7 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.SingerView
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, SingerActivity.class);
-            intent.putExtra("uuid", list.get(position).getPurl());
+            intent.putExtra("uuid", list.get(position).getUuid());
             context.startActivity(intent);
         });
     }

@@ -15,14 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lulu.R;
 import com.example.lulu.classes.Song;
-import com.example.lulu.classes.User;
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
-import static com.example.lulu.FirebaseHelper.likedSongsDatabase;
-import static com.example.lulu.FirebaseHelper.mAuth;
-import static com.example.lulu.FirebaseHelper.userDatabase;
+import static com.example.lulu.utils.FirebaseHelper.likedSongsDatabase;
+import static com.example.lulu.utils.FirebaseHelper.mAuth;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>{
 
@@ -46,7 +43,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         holder.name.setText(currentSong.getName());
 
         holder.itemView.setOnClickListener(view -> {
-            goToWebPage(currentSong.getYoutubeLink());
+            //goToWebPage(currentSong.getYoutubeLink());
         });
 
         holder.likedSong.setChecked(currentSong.isFavourite());
