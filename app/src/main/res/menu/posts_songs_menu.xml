@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_artist_songs"
+        android:icon="@drawable/ic_baseline_library_music_24"
+        android:title="Songs" />
+
+    <item
+        android:id="@+id/nav_artist_posts"
+        android:icon="@drawable/ic_posts"
+        android:title="Posts" />
+</menu>

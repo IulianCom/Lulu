@@ -1,10 +1,20 @@
 package com.example.lulu.classes;
 
+import java.util.UUID;
+
 public class Post {
     private String uuid;
-    private String title;
     private String text;
     private String posterUuid;
+
+    public Post() {
+    }
+
+    public Post(String text, String posterUuid) {
+        this.uuid = UUID.randomUUID().toString();
+        this.text = text;
+        this.posterUuid = posterUuid;
+    }
 
     public String getUuid() {
         return uuid;
@@ -12,14 +22,6 @@ public class Post {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getText() {

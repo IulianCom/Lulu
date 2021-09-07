@@ -1,25 +1,24 @@
 package com.example.lulu.activities;
 
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.lulu.R;
 import com.example.lulu.classes.ArtistSong;
 import com.example.lulu.utils.FirebaseHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +43,7 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         currentSong = (ArtistSong) getIntent().getSerializableExtra("currentSong");
         songQueue = (ArrayList<ArtistSong>) getIntent().getSerializableExtra("songs");
-        Log.d("pula", "onCreate: " + songQueue + "            " + currentSong);
+        Log.d("create", "onCreate: " + songQueue + "            " + currentSong);
         FirebaseHelper.mSingersSongsRef
                 .child(currentSong.getAdderUuid())
                 .child(currentSong.getUuid() + "/" + currentSong.getName() + currentSong.getFileExtension())
@@ -52,7 +51,7 @@ public class PlayerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Log.d("plm", "play: " + uri);
+                        Log.d("song", "play: " + uri);
                         currentSongUri = uri;
                         play();
                         mMusicSb.setMax(mMediaPlayer.getDuration());
@@ -60,7 +59,7 @@ public class PlayerActivity extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("asda", "onCreate: " + e.getLocalizedMessage(), e);
+                    Log.e("create", "onCreate: " + e.getLocalizedMessage(), e);
                 });
         initializeViews();
         mSongNameTv.setText(currentSong.getName());

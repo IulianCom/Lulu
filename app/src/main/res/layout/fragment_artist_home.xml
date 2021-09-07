@@ -63,45 +63,35 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/activity_post_et"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/paletteWhite"
+                android:fontFamily="@font/gotham_book"
+                android:paddingStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/darkGrey"
+                android:layout_width="355dp"
+                android:layout_height="35dp"/>
+            <Button
+                android:id="@+id/btn_add_post"
+                android:layout_width="250dp"
+                android:text="Add post"
+                android:layout_below="@+id/activity_post_et"
+                android:fontFamily="@font/gotham_book"
+                android:textColor="@color/darkGrey"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/log_in_button"
+                android:layout_height="wrap_content"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_singer"
+                android:id="@+id/rv_posts"
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
+                android:layout_below="@id/btn_add_post"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="wrap_content"/>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/ll_add_song"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_below="@+id/rv_singer"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/et_song_name"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/paletteWhite"
-                    android:gravity="top"
-                    android:hint="Enter sing name"
-                    android:scrollbars="vertical" />
-                <EditText
-                    android:id="@+id/et_song_link"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/paletteWhite"
-                    android:gravity="top"
-                    android:hint="Enter song link"
-                    android:scrollbars="vertical" />
-                <Button
-                    android:id="@+id/btn_add_song"
-                    android:layout_width="wrap_content"
-                    android:text="Add song"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 

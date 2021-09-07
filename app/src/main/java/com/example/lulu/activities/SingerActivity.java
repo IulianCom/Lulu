@@ -1,139 +1,49 @@
 package com.example.lulu.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.lulu.R;
-import com.example.lulu.adapters.SongAdapter;
-import com.example.lulu.classes.Singer;
-import com.example.lulu.classes.Song;
-import com.example.lulu.utils.FirebaseHelper;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
-import static com.example.lulu.utils.FirebaseHelper.likedSongsDatabase;
-import static com.example.lulu.utils.FirebaseHelper.mAuth;
-import static com.example.lulu.utils.FirebaseHelper.mSingersImagesRef;
-import static com.example.lulu.utils.FirebaseHelper.artistSongsDatabase;
-import static com.example.lulu.utils.FirebaseHelper.mStorageRef;
+import com.example.lulu.classes.User;
+import com.example.lulu.fragments.PostsFragment;
+import com.example.lulu.fragments.SongsFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SingerActivity extends AppCompatActivity {
-    private TextView singerName;
-    private ImageView singerImage;
-    private RecyclerView recyclerView;
 
-    private String singerUUID;
-    private ArrayList<Song> list;
+    private User singer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singer);
-
         Intent intent = this.getIntent();
-        singerUUID = intent.getStringExtra("uuid");
-
-        initializeViews();
-        updateUI(FirebaseHelper.artistSongsDatabase.child(singerUUID));
+        singer = (User) intent.getSerializableExtra("artist");
+        BottomNavigationView bottomNavigationView = findViewById(R.id.post_song_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.activity_singer_fragment_container, SongsFragment.newInstance(singer)).commit();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        populateRecyclerView(artistSongsDatabase.child(singerUUID));
-
-    }
-
-    private void populateRecyclerView(DatabaseReference ref) {
-        ArrayList<Song> favoriteSongs = new ArrayList<>();
-        likedSongsDatabase.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        favoriteSongs.add(ds.getValue(Song.class));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        if(ref != null){
-            ref.addValueEventListener(new ValueEventListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        list = new ArrayList<>();
-                        for(DataSnapshot ds : snapshot.getChildren()) {
-                            Song song = ds.getValue(Song.class);
-                            if(favoriteSongs.contains(song))
-                                song.setFavourite(true);
-                            else song.setFavourite(false);
-                            list.add(song);
-                        }
-                        SongAdapter songAdapter = new SongAdapter(list, getApplicationContext());
-                        recyclerView.setAdapter(songAdapter);
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+                    switch (item.getItemId()) {
+                        case R.id.nav_artist_posts:
+                            selectedFragment = PostsFragment.newInstance(singer);
+                            break;
+                        case R.id.nav_artist_songs:
+                            selectedFragment = SongsFragment.newInstance(singer);
+                            break;
                     }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.activity_singer_fragment_container, selectedFragment).commit();
+                    return true;
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
-    }
-
-    private void initializeViews() {
-        singerName = findViewById(R.id.singer_name);
-        singerImage = findViewById(R.id.singer_image);
-        recyclerView = findViewById(R.id.rv_singer);
-    }
-
-
-    private void updateUI(DatabaseReference currentSingerBdReference) {
-        currentSingerBdReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Singer currentSinger = snapshot.getValue(Singer.class);
-                singerName.setText(currentSinger.getName());
-                StorageReference ref = mStorageRef.child("users/" + singerUUID + "/profile.jpg");
-                ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                        Picasso.get()
-                                .load(uri)
-                                .into(singerImage);
-                }).addOnFailureListener(e -> {
-                    Log.println(Log.DEBUG,"pula", "update ui" + e.getStackTrace().toString());
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-
+            };
 }

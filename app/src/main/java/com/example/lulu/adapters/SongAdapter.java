@@ -2,7 +2,6 @@ package com.example.lulu.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lulu.R;
@@ -19,9 +17,6 @@ import com.example.lulu.activities.PlayerActivity;
 import com.example.lulu.classes.ArtistSong;
 import com.example.lulu.classes.Song;
 import com.example.lulu.utils.FirebaseHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +27,6 @@ import java.util.ArrayList;
 import static com.example.lulu.utils.FirebaseHelper.artistSongsDatabase;
 import static com.example.lulu.utils.FirebaseHelper.likedSongsDatabase;
 import static com.example.lulu.utils.FirebaseHelper.mAuth;
-import static com.example.lulu.utils.FirebaseHelper.userDatabase;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>{
 
@@ -73,7 +67,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
         Song currentSong = list.get(position);
         holder.name.setText(currentSong.getName());
-
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, PlayerActivity.class);
             intent.putExtra("songs", artistSongs);

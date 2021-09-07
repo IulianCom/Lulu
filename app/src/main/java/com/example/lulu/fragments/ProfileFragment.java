@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
         saveDataBtn.setOnClickListener(v -> {
             String name = nameEt.getText().toString();
             if(!name.isEmpty()) {
-                userDatabase.child(mAuth.getCurrentUser().getUid()).child("name").setValue(name);
+                userDatabase.child(user.getUuid()).child("name").setValue(name);
             }
             else {
                 Toast.makeText(view.getContext(), "Name field must not be empty", Toast.LENGTH_SHORT).show();

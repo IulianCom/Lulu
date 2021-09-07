@@ -7,74 +7,19 @@
     android:background="@color/dark_mode"
     tools:context=".activities.SingerActivity">
 
-    <ImageView
-        android:id="@+id/singer_image"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
-        android:id="@+id/singer_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/singer_image"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:text="Name"
-        android:textSize="30dp"
-        android:fontFamily="@font/gotham_book"
-        android:textColor="@color/paletteWhite"
-        android:layout_centerHorizontal="true" />
-
-    <ScrollView
-        android:layout_margin="10dp"
+    <FrameLayout
+        android:id="@+id/activity_singer_fragment_container"
         android:layout_width="match_parent"
-        android:layout_below="@+id/singer_name"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_singer"
-                android:layout_width="match_parent"
-                android:layout_margin="5dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        />
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/ll_add_song"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_below="@+id/rv_singer"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/et_song_name"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/paletteWhite"
-                    android:gravity="top"
-                    android:hint="Enter sing name"
-                    android:scrollbars="vertical" />
-                <EditText
-                    android:id="@+id/et_song_link"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/paletteWhite"
-                    android:gravity="top"
-                    android:hint="Enter song link"
-                    android:scrollbars="vertical" />
-                <Button
-                    android:id="@+id/btn_add_song"
-                    android:layout_width="wrap_content"
-                    android:text="Add song"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/post_song_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/darkGrey"
+        app:itemTextColor="@color/lightGrey"
+        app:menu="@menu/posts_songs_menu" />
 </RelativeLayout>

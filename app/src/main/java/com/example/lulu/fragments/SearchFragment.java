@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lulu.R;
 import com.example.lulu.adapters.SingerAdapter;
-import com.example.lulu.classes.Singer;
 import com.example.lulu.classes.User;
-import com.example.lulu.utils.FirebaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
