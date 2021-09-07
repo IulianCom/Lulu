@@ -1,9 +1,12 @@
 package com.example.lulu.activities;
 
+import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -28,6 +31,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ImageView mPlayIv;
     private ImageView mPauseIv;
     private ImageView mLikeIv;
+    private Handler mHandler = new Handler();
 
     private TextView mSongNameTv;
 
@@ -44,6 +48,9 @@ public class PlayerActivity extends AppCompatActivity {
         currentSong = (ArtistSong) getIntent().getSerializableExtra("currentSong");
         songQueue = (ArrayList<ArtistSong>) getIntent().getSerializableExtra("songs");
         Log.d("create", "onCreate: " + songQueue + "            " + currentSong);
+        ProgressDialog progressdialog = new ProgressDialog(PlayerActivity.this);
+        progressdialog.setMessage("Please Wait....");
+        progressdialog.show();
         FirebaseHelper.mSingersSongsRef
                 .child(currentSong.getAdderUuid())
                 .child(currentSong.getUuid() + "/" + currentSong.getName() + currentSong.getFileExtension())
@@ -54,8 +61,7 @@ public class PlayerActivity extends AppCompatActivity {
                         Log.d("song", "play: " + uri);
                         currentSongUri = uri;
                         play();
-                        mMusicSb.setMax(mMediaPlayer.getDuration());
-                        getMaxDuration();
+                        progressdialog.dismiss();
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -112,7 +118,19 @@ public class PlayerActivity extends AppCompatActivity {
         if (mMediaPlayer == null) {
             mMediaPlayer = MediaPlayer.create(this, currentSongUri);
         }
+        PlayerActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(mMediaPlayer != null) {
+                    int mCurrentPosition = mMediaPlayer.getCurrentPosition() / 1000;
+                    mMusicSb.setProgress(mCurrentPosition);
+                }
+                mHandler.postDelayed(this, 1000);
+            }
+        });
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mMediaPlayer.start();
+        mMusicSb.setMax(mMediaPlayer.getDuration() / 1000);
     }
 
     public void pause() {
@@ -134,6 +152,25 @@ public class PlayerActivity extends AppCompatActivity {
         mPauseIv = findViewById(R.id.iv_activity_player_pause);
         mSongNameTv = findViewById(R.id.activity_player_tv_song_name);
         mLikeIv = findViewById(R.id.btn_like);
+
+        mMusicSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(mMediaPlayer != null && fromUser) {
+                    mMediaPlayer.seekTo(progress * 1000);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     public void getMaxDuration() {
@@ -142,4 +179,5 @@ public class PlayerActivity extends AppCompatActivity {
                 TimeUnit.MILLISECONDS.toMinutes(duration),
                 TimeUnit.MILLISECONDS.toSeconds(duration) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration))));
     }
+
 }
