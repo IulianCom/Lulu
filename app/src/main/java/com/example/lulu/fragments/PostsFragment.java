@@ -87,7 +87,7 @@ public class PostsFragment extends Fragment {
                     .load(uri)
                     .into(mSingerImageIv);
         }).addOnFailureListener(e -> {
-            Log.println(Log.DEBUG,"pula", "update ui" + e.getStackTrace().toString());
+            Log.println(Log.DEBUG,"update", "update ui" + e.getStackTrace().toString());
         });
     }
 
