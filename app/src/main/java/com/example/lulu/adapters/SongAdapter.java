@@ -84,6 +84,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             }
             else {
                 artistSongsDatabase.child(currentSong.getAdderUuid()).child(currentSong.getUuid()).child("likesCount").setValue(artistSongs.get(position).getLikesCount() - 1);
+                likedSongsDatabase.child(mAuth.getUid()).child(currentSong.getUuid()).removeValue();
+                list.remove(currentSong);
                 currentSong.decrementAppreciations();
             }
         });
